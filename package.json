@@ -27,7 +27,7 @@
   "scripts": {
     "dev": "next -p 8080",
     "build": "next build",
-    "start": "next start",
+    "start": "node server",
     "server": "next build && SET MONGO_USER=USER&& SET MONGO_PWD=PWD&& node  --inspect server"
   }
 }
