@@ -1,6 +1,7 @@
 {
   "name": "app",
   "version": "0.0.1",
+  "main": "server.js",
   "dependencies": {
     "body-parser": "^1.18.2",
     "cuid": "^2.1.1",
