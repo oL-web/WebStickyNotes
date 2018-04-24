@@ -345,7 +345,7 @@ var InteractWrapper = function (_React$Component) {
             __WEBPACK_IMPORTED_MODULE_2_interactjs__(this.refs.interact).draggable({
                 inertia: false,
                 restrict: {
-                    restriction: "parent",
+                    restriction: "self",
                     endOnly: true,
                     elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
                 },
@@ -467,6 +467,7 @@ var InteractWrapper = function (_React$Component) {
                 },
                 __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_react_uwp_CommandBar___default.a, {
                     style: {
+                        touchAction: "none",
                         backgroundColor: this.props.accentColor || "#0078D7",
                         position: "relative"
                     },
@@ -688,7 +689,6 @@ var NotesContainer = function (_React$Component) {
         key: "componentDidMount",
         value: function componentDidMount() {
             localStorage.notes = localStorage.notes || "[{\"id\":\"" + __WEBPACK_IMPORTED_MODULE_4_cuid___default()() + "\",\"msg\":\"\",\"x\":\"60\",\"y\":\"10\"}]";
-            console.log(localStorage);
             var notesToAdd = JSON.parse(localStorage.notes);
 
             var sharedNotes = this.props.sharedNotes;
@@ -710,14 +710,14 @@ var NotesContainer = function (_React$Component) {
             return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
                 "div",
                 {
-                    className: "jsx-695706805"
+                    className: "jsx-807935170"
                 },
                 this.props.notes.notes.map(function (item, index) {
                     return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__InteractWrapper__["default"], { key: item.id, id: item.id, msg: item.msg, x: item.x, y: item.y });
                 }),
                 __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default.a, {
-                    styleId: "695706805",
-                    css: [".jsx-695706805{position:absolute;top:0;left:0;width:100%;height:100%;}"]
+                    styleId: "807935170",
+                    css: ["div.jsx-807935170{position:absolute;top:0;left:0;width:100%;height:100%;}"]
                 })
             );
         }
@@ -912,12 +912,23 @@ var ShareContainer = function (_React$Component) {
     }, {
         key: "shareNotes",
         value: function shareNotes() {
-            __WEBPACK_IMPORTED_MODULE_7_superagent___default.a.post('/share').send({
-                customLinkText: this.state.customLinkText,
-                notes: JSON.parse(localStorage.notes)
-            }).set('accept', 'json').end(function (err, res) {
-                console.log(res);
-            });
+            var _this2 = this;
+
+            var errorMsg = "";
+
+            if (!this.state.customLinkText) errorMsg += "You need to provide a proper text for the URL. ";
+            if (this.state.customLinkText > 100) errorMsg += "The text provided should be less than 100 characters long. ";
+
+            if (errorMsg) {
+                this.refs.serverResponse.textContent = errorMsg;
+            } else {
+                __WEBPACK_IMPORTED_MODULE_7_superagent___default.a.post('/share').send({
+                    customLinkText: this.state.customLinkText,
+                    notes: JSON.parse(localStorage.notes)
+                }).set('accept', 'json').end(function (err, res) {
+                    if (res) _this2.refs.serverResponse.textContent = res.text;else _this2.refs.serverResponse.textContent = "The server couldn't be reached. Check your internet connection.";
+                });
+            }
         }
     }, {
         key: "render",
@@ -928,7 +939,7 @@ var ShareContainer = function (_React$Component) {
                 !this.props.dialog.showShare ? null : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_react_uwp_ContentDialog___default.a, {
                     title: "Share your notes with the world! This will create a special URL using the text you can provide below(up to 100 characters). People who visit that link will automatically download your current notes onto their device.",
                     statusBarTitle: "Share",
-                    primaryButtonText: "Save",
+                    primaryButtonText: "Publish",
                     showCloseButton: true,
                     defaultShow: true,
                     primaryButtonAction: this.shareNotes.bind(this),
@@ -945,7 +956,12 @@ var ShareContainer = function (_React$Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_react_uwp_TextBox___default.a, { onChangeValue: this.handleLinkChange.bind(this),
                             style: { width: "100%" }, placeholder: "www.localnotes.herokuapp.com/shared/YOUR-TEXT" }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_react_uwp_TextBox___default.a, { style: { width: "100%" },
-                            disabled: true, value: this.websiteLink + this.state.customLinkText })
+                            disabled: true, value: this.websiteLink + this.state.customLinkText }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "p",
+                            { ref: "serverResponse" },
+                            " "
+                        )
                     ) })
             );
         }
@@ -1097,19 +1113,27 @@ var Index = function (_React$Component) {
                     __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
                         __WEBPACK_IMPORTED_MODULE_8_next_head___default.a,
                         null,
-                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('meta', { name: 'viewport', content: 'width=device-width, initial-scale=1' }),
+                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('meta', { name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no' }),
                         __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('meta', { name: 'description', content: 'A web application allowing you to create sticky notes saved on your local device using the JavaScript localStorage API.' }),
                         __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('meta', { name: 'keywords', content: 'localnotes, ol-web, olweb, ol web, localstorage, notes, sticky notes, note online, web notes' }),
+                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('meta', { name: 'theme-color', content: '#000000' }),
+                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('meta', { name: 'mobile-web-app-capable', content: 'yes' }),
+                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }),
+                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('meta', { name: 'application-name', content: 'WebStickyNotes' }),
+                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('meta', { name: 'apple-mobile-web-app-title', content: 'WebStickyNotes' }),
+                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('meta', { name: 'msapplication-starturl', content: '/' }),
+                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('link', { rel: 'shortcut icon', href: '/static/favicon.png' }),
+                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('link', { rel: 'manifest', href: '/static/manifest.json' }),
                         __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
                             'title',
                             null,
-                            'localNotes'
+                            'WebStickyNotes'
                         )
                     ),
                     __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
                         __WEBPACK_IMPORTED_MODULE_9_react_uwp_NavigationView___default.a,
                         {
-                            pageTitle: 'localNotes',
+                            pageTitle: 'WebStickyNotes',
                             style: {
                                 position: "fixed",
                                 zIndex: 999999999,
@@ -1158,11 +1182,9 @@ var Index = function (_React$Component) {
                         switch (_context.prev = _context.next) {
                             case 0:
                                 notes = query.notes;
-
-                                console.warn(notes);
                                 return _context.abrupt('return', { notes: notes });
 
-                            case 3:
+                            case 2:
                             case 'end':
                                 return _context.stop();
                         }

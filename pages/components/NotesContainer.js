@@ -10,7 +10,6 @@ import { addNotes } from "../redux/actions/addNotes";
 class NotesContainer extends React.Component {
     componentDidMount() {
         localStorage.notes = localStorage.notes || `[{"id":"${cuid()}","msg":"","x":"60","y":"10"}]`;
-        console.log(localStorage);
         let notesToAdd = JSON.parse(localStorage.notes);
 
         const sharedNotes = this.props.sharedNotes;
@@ -32,11 +31,13 @@ class NotesContainer extends React.Component {
                 )}
 
                 <style jsx>{`
-                        position:absolute;
-                        top:0;
-                        left:0;
-                        width:100%;
-                        height:100%;
+                div{
+                    position:absolute;
+                    top:0;
+                    left:0;
+                    width:100%;
+                    height:100%;
+                }
                     `}</style>
             </div>
         );

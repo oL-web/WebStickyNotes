@@ -15,7 +15,7 @@ class InteractWrapper extends React.Component {
             .draggable({
                 inertia: false,
                 restrict: {
-                    restriction: "parent",
+                    restriction: "self",
                     endOnly: true,
                     elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
                 },
@@ -125,6 +125,7 @@ class InteractWrapper extends React.Component {
                 ref="interact">
                 <CommandBar
                     style={{
+                        touchAction:"none",
                         backgroundColor: this.props.accentColor || "#0078D7",
                         position: "relative"
                     }}

@@ -195,7 +195,7 @@ var InteractWrapper = function (_React$Component) {
             __WEBPACK_IMPORTED_MODULE_2_interactjs__(this.refs.interact).draggable({
                 inertia: false,
                 restrict: {
-                    restriction: "parent",
+                    restriction: "self",
                     endOnly: true,
                     elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
                 },
@@ -317,6 +317,7 @@ var InteractWrapper = function (_React$Component) {
                 },
                 __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_react_uwp_CommandBar___default.a, {
                     style: {
+                        touchAction: "none",
                         backgroundColor: this.props.accentColor || "#0078D7",
                         position: "relative"
                     },
@@ -424,7 +425,6 @@ var NotesContainer = function (_React$Component) {
         key: "componentDidMount",
         value: function componentDidMount() {
             localStorage.notes = localStorage.notes || "[{\"id\":\"" + __WEBPACK_IMPORTED_MODULE_4_cuid___default()() + "\",\"msg\":\"\",\"x\":\"60\",\"y\":\"10\"}]";
-            console.log(localStorage);
             var notesToAdd = JSON.parse(localStorage.notes);
 
             var sharedNotes = this.props.sharedNotes;
@@ -446,14 +446,14 @@ var NotesContainer = function (_React$Component) {
             return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
                 "div",
                 {
-                    className: "jsx-695706805"
+                    className: "jsx-807935170"
                 },
                 this.props.notes.notes.map(function (item, index) {
                     return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__InteractWrapper__["default"], { key: item.id, id: item.id, msg: item.msg, x: item.x, y: item.y });
                 }),
                 __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default.a, {
-                    styleId: "695706805",
-                    css: [".jsx-695706805{position:absolute;top:0;left:0;width:100%;height:100%;}"]
+                    styleId: "807935170",
+                    css: ["div.jsx-807935170{position:absolute;top:0;left:0;width:100%;height:100%;}"]
                 })
             );
         }

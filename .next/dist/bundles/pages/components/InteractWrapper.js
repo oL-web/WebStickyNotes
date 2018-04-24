@@ -195,7 +195,7 @@ var InteractWrapper = function (_React$Component) {
             __WEBPACK_IMPORTED_MODULE_2_interactjs__(this.refs.interact).draggable({
                 inertia: false,
                 restrict: {
-                    restriction: "parent",
+                    restriction: "self",
                     endOnly: true,
                     elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
                 },
@@ -317,6 +317,7 @@ var InteractWrapper = function (_React$Component) {
                 },
                 __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_react_uwp_CommandBar___default.a, {
                     style: {
+                        touchAction: "none",
                         backgroundColor: this.props.accentColor || "#0078D7",
                         position: "relative"
                     },

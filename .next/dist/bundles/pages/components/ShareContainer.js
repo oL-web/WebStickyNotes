@@ -339,12 +339,23 @@ var ShareContainer = function (_React$Component) {
     }, {
         key: "shareNotes",
         value: function shareNotes() {
-            __WEBPACK_IMPORTED_MODULE_7_superagent___default.a.post('/share').send({
-                customLinkText: this.state.customLinkText,
-                notes: JSON.parse(localStorage.notes)
-            }).set('accept', 'json').end(function (err, res) {
-                console.log(res);
-            });
+            var _this2 = this;
+
+            var errorMsg = "";
+
+            if (!this.state.customLinkText) errorMsg += "You need to provide a proper text for the URL. ";
+            if (this.state.customLinkText > 100) errorMsg += "The text provided should be less than 100 characters long. ";
+
+            if (errorMsg) {
+                this.refs.serverResponse.textContent = errorMsg;
+            } else {
+                __WEBPACK_IMPORTED_MODULE_7_superagent___default.a.post('/share').send({
+                    customLinkText: this.state.customLinkText,
+                    notes: JSON.parse(localStorage.notes)
+                }).set('accept', 'json').end(function (err, res) {
+                    if (res) _this2.refs.serverResponse.textContent = res.text;else _this2.refs.serverResponse.textContent = "The server couldn't be reached. Check your internet connection.";
+                });
+            }
         }
     }, {
         key: "render",
@@ -355,7 +366,7 @@ var ShareContainer = function (_React$Component) {
                 !this.props.dialog.showShare ? null : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_react_uwp_ContentDialog___default.a, {
                     title: "Share your notes with the world! This will create a special URL using the text you can provide below(up to 100 characters). People who visit that link will automatically download your current notes onto their device.",
                     statusBarTitle: "Share",
-                    primaryButtonText: "Save",
+                    primaryButtonText: "Publish",
                     showCloseButton: true,
                     defaultShow: true,
                     primaryButtonAction: this.shareNotes.bind(this),
@@ -372,7 +383,12 @@ var ShareContainer = function (_React$Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_react_uwp_TextBox___default.a, { onChangeValue: this.handleLinkChange.bind(this),
                             style: { width: "100%" }, placeholder: "www.localnotes.herokuapp.com/shared/YOUR-TEXT" }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_react_uwp_TextBox___default.a, { style: { width: "100%" },
-                            disabled: true, value: this.websiteLink + this.state.customLinkText })
+                            disabled: true, value: this.websiteLink + this.state.customLinkText }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            "p",
+                            { ref: "serverResponse" },
+                            " "
+                        )
                     ) })
             );
         }

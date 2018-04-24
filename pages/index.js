@@ -31,23 +31,32 @@ export default class Index extends React.Component {
         });
     }
     static async getInitialProps({ query }) {
-       
         const notes = query.notes;
-        console.warn(notes);
         return { notes };
-      }    
+    }
     render() {
         return (
             <Provider store={store}>
                 <Layout>
                     <Head>
-                        <meta name="viewport" content="width=device-width, initial-scale=1" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                         <meta name="description" content="A web application allowing you to create sticky notes saved on your local device using the JavaScript localStorage API." />
                         <meta name="keywords" content="localnotes, ol-web, olweb, ol web, localstorage, notes, sticky notes, note online, web notes" />
-                        <title>localNotes</title>
+
+                        <meta name="theme-color" content="#000000" />
+                        <meta name="mobile-web-app-capable" content="yes" />
+                        <meta name="apple-mobile-web-app-capable" content="yes" />
+                        <meta name="application-name" content="WebStickyNotes" />
+                        <meta name="apple-mobile-web-app-title" content="WebStickyNotes" />
+                        <meta name="msapplication-starturl" content="/" />
+
+                        <link rel="shortcut icon" href="/static/favicon.png" />
+                        <link rel="manifest" href="/static/manifest.json" />
+
+                        <title>WebStickyNotes</title>
                     </Head>
                     <NavigationView
-                        pageTitle="localNotes"
+                        pageTitle="WebStickyNotes"
                         style={{
                             position: "fixed",
                             zIndex: 999999999,
@@ -77,8 +86,8 @@ export default class Index extends React.Component {
                         ]}
                         focusNavigationNodeIndex={1}
                     >
-                    <SettingsContainer />
-                    <ShareContainer />
+                        <SettingsContainer />
+                        <ShareContainer />
                     </NavigationView>
                     <NotesContainer sharedNotes={this.props.notes} />
                 </Layout>
