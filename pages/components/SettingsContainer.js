@@ -25,22 +25,24 @@ class SettingsContainer extends React.Component {
     render() {
         return (
             <div>
-            {!this.props.dialog.showSettings ? null :
-                <ContentDialog         
-                    title="Change color accent"           
-                    statusBarTitle="Settings"
-                    primaryButtonText="Save"
-                    showCloseButton={true}
-                    defaultShow={true}
-                    primaryButtonAction={this.changeColor}
-                    secondaryButtonAction={() => store.dispatch({ type: "TOGGLE_SETTINGS" })}
-                    closeButtonAction={() => store.dispatch({ type: "TOGGLE_SETTINGS" })} 
-                    style={{zIndex: 999999999}}
-                    contentNode={
-                        <ColorPicker
-                            defaultColor={this.colorPickerColor}
-                            onChangedColor={this.handlePickedColor.bind(this)} />
-                    } />
+                {!this.props.dialog.showSettings ? null :
+                    <ContentDialog
+                        title="Change color accent"
+                        statusBarTitle="Settings"
+                        primaryButtonText="Save"
+                        showCloseButton={true}
+                        defaultShow={true}
+                        primaryButtonAction={this.changeColor}
+                        secondaryButtonAction={() => store.dispatch({ type: "TOGGLE_SETTINGS" })}
+                        closeButtonAction={() => store.dispatch({ type: "TOGGLE_SETTINGS" })}
+                        style={{ zIndex: 999999999 }}
+                        contentNode={
+                            <ColorPicker
+                                size={300}
+                                style={{ padding: "0 0 15px 15px" }}
+                                defaultColor={this.colorPickerColor}
+                                onChangedColor={this.handlePickedColor.bind(this)} />
+                        } />
                 }
             </div>
         );

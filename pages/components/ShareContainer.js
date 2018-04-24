@@ -27,7 +27,7 @@ class ShareContainer extends React.Component {
         let errorMsg = "";
 
         if(!this.state.customLinkText) errorMsg += "You need to provide a proper text for the URL. ";
-        if (this.state.customLinkText > 100) errorMsg += "The text provided should be less than 100 characters long. ";
+        if (String(this.state.customLinkText).length > 100) errorMsg += "The text provided should be less than 100 characters long. ";
 
         if(errorMsg){         
             this.refs.serverResponse.textContent = errorMsg;
