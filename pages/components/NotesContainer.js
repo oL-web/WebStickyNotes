@@ -20,6 +20,12 @@ class NotesContainer extends React.Component {
             });
             notesToAdd = notesToAdd.concat(nonduplicatedSharedNotes);
         }
+
+        const screenHeight = window.screen.height || 640;
+        notesToAdd.forEach((item)=>{
+            if((item.y * 1) > (screenHeight - 30)) item.y = screenHeight / 2;
+        });
+
         localStorage.notes = JSON.stringify(notesToAdd);
         this.props.addNotes(notesToAdd);
     }
