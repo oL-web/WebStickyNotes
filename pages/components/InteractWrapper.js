@@ -94,7 +94,7 @@ class InteractWrapper extends React.Component {
             const note = {
                 id: cuid(),
                 msg: "",
-                x: (this.refs.interact.getAttribute('data-x') || this.props.x) * 1 + 350,
+                x: (this.refs.interact.getAttribute('data-x') || this.props.x) * 1 + 270,
                 y: (this.refs.interact.getAttribute('data-y') || this.props.y)
             };
 
