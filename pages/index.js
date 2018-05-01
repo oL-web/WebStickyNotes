@@ -61,6 +61,7 @@ export default class Index extends React.Component {
                             position: "fixed",
                             zIndex: 999999999,
                             height: "100%",
+                            overflowY:"hidden",
                             top: 0
                         }}
                         displayMode="overlay"

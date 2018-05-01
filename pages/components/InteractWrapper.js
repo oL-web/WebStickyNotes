@@ -41,7 +41,7 @@ class InteractWrapper extends React.Component {
                     endOnly: true,
                 },
                 restrictSize: {
-                    min: { width: 300, height: 300 },
+                    min: { width: 250, height: 200 },
                 },
                 inertia: true,
             })
@@ -139,8 +139,8 @@ class InteractWrapper extends React.Component {
 
                 <style jsx>{`
                div{
-                   width:300px;
-                   height:300px;
+                   width:250px;
+                   height:200px;
                    position:absolute;    
                }
                textarea {
@@ -151,6 +151,12 @@ class InteractWrapper extends React.Component {
                 height:100%;
                 font-size:18px;
                 border:0;
+            }
+
+            @media only screen and (max-width: 600px) {
+                textarea {
+                    font-size:14px;
+                }
             }
                     `}</style>
             </div>

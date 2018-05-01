@@ -35,7 +35,7 @@ class SettingsContainer extends React.Component {
                         primaryButtonAction={this.changeColor}
                         secondaryButtonAction={() => store.dispatch({ type: "TOGGLE_SETTINGS" })}
                         closeButtonAction={() => store.dispatch({ type: "TOGGLE_SETTINGS" })}
-                        style={{ zIndex: 999999999 }}
+                        style={{ zIndex: 999999999, height:"100%" }}
                         contentNode={
                             <ColorPicker
                                 size={300}

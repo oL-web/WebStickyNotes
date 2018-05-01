@@ -57,7 +57,7 @@ class ShareContainer extends React.Component {
                     primaryButtonAction={this.shareNotes.bind(this)}
                     secondaryButtonAction={() => store.dispatch({ type: "TOGGLE_SHARE" })}
                     closeButtonAction={() => store.dispatch({ type: "TOGGLE_SHARE" })}
-                    style={{ zIndex: 999999999 }}
+                    style={{ zIndex: 999999999, height:"100%" }}
                     contentNode={
                         <div style={{ padding: "16px" }}>
                             <TextBox onChangeValue={this.handleLinkChange.bind(this)}
